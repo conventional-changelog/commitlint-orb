@@ -1,13 +1,28 @@
-# Orb Project Template
+# commitlint orb
 
 [![CircleCI Build Status](https://circleci.com/gh/conventional-changelog/commitlint-orb.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/conventional-changelog/commitlint-orb) [![CircleCI Orb Version](https://badges.circleci.com/orbs/conventional-changelog/commitlint.svg)](https://circleci.com/orbs/registry/orb/conventional-changelog/commitlint) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/conventional-changelog/commitlint-orb/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
 
 
 
-A starter template for orb projects. Build, test, and publish orbs automatically on CircleCI with [Orb-Tools](https://circleci.com/orbs/registry/orb/circleci/orb-tools).
+Lint your commit messages in a CircleCI job.
 
-Additional READMEs are available in each directory.
+Add this orb's `commitlint/lint` job to your existing CircleCI workflow to utilize [commitlint](https://github.com/conventional-changelog/commitlint) for validating commit messages against the [conventional commit format](https://conventionalcommits.org/).
 
+## Example
+
+This example shows importing the `commitlint` orb into a basic CircleCI 2.1 config file, and adding the `commitlint/lint` job to a workflow. This configuration will lint every commit pushed to the repository.
+
+```yaml
+version: 2.1
+  orbs:
+    commitlint: conventional-changelog/commitlint@1.0
+  workflows:
+    my-workflow:
+      jobs:
+        - commitlint/lint
+```
+
+CircleCI will report back the status of the `commitlint/lint` job and block a Pull Request from being merged if the job fails.
 
 
 ## Resources
