@@ -1,0 +1,39 @@
+description: |
+  Add this lint job to your workflow to easily enable commit message lint checking as a step in your CI process.
+
+
+docker:
+  - image: "cimg/node:<<parameters.node-version>>"
+
+parameters:
+  config-path:
+    type: string
+    description: Path to commitlint config file
+    default: "./commitlint.config.js"
+  configs:
+    type: string
+    description: A space-separated list of commitlint config packages to install.
+    default: "@commitlint/config-conventional"
+  target-branch:
+    type: string
+    description: Commits in the current branch will be compared against the target branch for linting. All commits not present in the target branch will be linted.
+    default: "main"
+  node-version:
+    type: string
+    default: "16.5.0"
+    description: "Specify the NodeJS version used to run the commitlint job. This should not usually need to be changed."
+  max-count:
+    type: integer
+    default: 10
+    description: "The maximum number of commits to lint."
+steps:
+  - checkout
+  - run:
+      name: "Run commitlint"
+      environment:
+        CL_PARAM_CONFIG_PATH: "<<parameters.config-path>>"
+        CL_PARAM_NODE_VERSION: "<<parameters.node-version>>"
+        CL_PARAM_TARGET_BRANCH: "<<parameters.target-branch>>"
+        CL_PARAM_CONFIGS: "<<parameters.configs>>"
+        CL_PARAM_MAX_COUNT: "<<parameters.max-count>>"
+      command: <<include(scripts/lint.sh)>>
