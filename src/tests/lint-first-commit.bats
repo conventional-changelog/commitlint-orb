@@ -1,6 +1,6 @@
 setup() {
   cd "$BATS_SUITE_TMPDIR" || exit
-  yarn add @commitlint/cli @commitlint/config-conventional
+  yarn add @commitlint/cli @commitlint/config-conventional -s
   alias commitlint="$BATS_SUITE_TMPDIR/node_modules/.bin/commitlint"
 
   export git_dir="${BATS_TEST_TMPDIR}/git_dir"
@@ -24,11 +24,11 @@ test_commit() {
 
 @test 'Test linting the fist bad commit' {
   test_commit "bad: commit"
-
-  current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  echo "Commit Created"
+  export current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  echo "Current branch: $current_branch"
   export CIRCLE_BRANCH="$current_branch"
   export CL_PARAM_TARGET_BRANCH="$current_branch"
-
   run main
   [[ "$output" == *"found 1 problems, 0 warnings"* ]]
   [[ "$output" == *"[type-enum]"* ]]
@@ -60,11 +60,12 @@ test_commit() {
     test_commit "chore: add $i"
   done
 
-  current_branch="$(git rev-parse --abbrev-ref HEAD)"
+  export current_branch="$(git rev-parse --abbrev-ref HEAD)"
   export CIRCLE_BRANCH="$current_branch"
   export CL_PARAM_TARGET_BRANCH="$current_branch"
 
   run main
+  echo "$output"
   [[ "$output" == *"found 1 problems, 0 warnings"* ]]
   [[ "$output" == *"[type-enum]"* ]]
 }
