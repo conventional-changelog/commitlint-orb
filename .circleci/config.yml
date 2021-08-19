@@ -41,6 +41,9 @@ workflows:
             - run:
                 name: Git Config
                 command: |
+                  mkdir -p ~/.config/yarn
+                  sudo chown -R circleci ~/.config/
+                  sudo chgrp -R circleci ~/.config/
                   git config --global user.email "communitypartner@circleci.com"
                   git config --global user.name "CPE Team"
       # Publish development version(s) of the orb.
