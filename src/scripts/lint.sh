@@ -15,12 +15,11 @@ fi
 
 # If there is only one commit, set target_head to that commit
 if [ "$(echo "$git_log" | wc -l | xargs)" == "1" ]; then
-  echo "Setting target to HEAD^"
   target_head=""
   echo "Target Head = $target_head"
 elif [ "$current_branch" != "$target_branch" ]; then
   echo "Setting target to $target_branch"
-  target_head="$(git cherry "$target_branch~1" | head -1 | cut -d " " -f2-)"
+  target_head="$(git cherry "$target_branch" | head -1 | cut -d " " -f2-)"
   echo "Target Head = $target_head"
 else
   echo "Setting target to HEAD -1"
