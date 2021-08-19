@@ -37,6 +37,12 @@ workflows:
       - bats/run:
           exec_environment: node/default
           path: ./src/tests
+          pre-steps:
+            - run:
+                name: Git Config
+                command: |
+                  git config --global user.email "communitypartner@circleci.com"
+                  git config --global user.name "CPE Team"
       # Publish development version(s) of the orb.
       - orb-tools/publish-dev:
           orb-name: conventional-changelog/commitlint
