@@ -5,6 +5,7 @@ orbs:
   commitlint: conventional-changelog/commitlint@<<pipeline.parameters.dev-orb-version>>
   orb-tools: circleci/orb-tools@10.0
   shellcheck: circleci/shellcheck@2.0
+  bats: circleci/bats@1.0
 
 # Pipeline Parameters
 ## These parameters are used internally by orb-tools. Skip to the Jobs section.
@@ -32,6 +33,8 @@ workflows:
       - shellcheck/check:
           dir: ./src/scripts
           exclude: SC2148
+      - bats/run:
+          path: ./src/tests
       # Publish development version(s) of the orb.
       - orb-tools/publish-dev:
           orb-name: conventional-changelog/commitlint
@@ -40,6 +43,7 @@ workflows:
             - orb-tools/lint
             - orb-tools/pack
             - shellcheck/check
+            - bats/run
       # Trigger an integration workflow to test the
       # dev:${CIRCLE_SHA1:0:7} version of your orb
       - orb-tools/trigger-integration-tests-workflow:
