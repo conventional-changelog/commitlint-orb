@@ -23,7 +23,7 @@ parameters:
     default: "16.5.0"
     description: "Specify the NodeJS version used to run the commitlint job. This should not usually need to be changed."
   max-count:
-    type: number
+    type: string
     default: "10"
     description: "The maximum number of commits to lint."
 steps:
