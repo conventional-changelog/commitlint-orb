@@ -1,10 +1,13 @@
 #!/bin/bash
-if [[ $EUID == 0 ]]; then export SUDO=""; else export SUDO="sudo"; fi
-$SUDO npm install -g @commitlint/cli "$CL_PARAM_CONFIGS"
+if ! command -v commitlint &> /dev/null
+then
+  if [[ $EUID == 0 ]]; then export SUDO=""; else export SUDO="sudo"; fi
+  $SUDO npm install -g @commitlint/cli "$CL_PARAM_CONFIGS"
+fi
 
 current_branch="$(git rev-parse --abbrev-ref HEAD)"
 target_branch="$CL_PARAM_TARGET_BRANCH"
-git_log="$(git log --reverse --max-count=1000 --format="format:%H")"
+git_log=$(git log --reverse --max-count="$CL_PARAM_MAX_COUNT" --format="format:%H")
 
 if [ -z "$git_log" ]; then
   echo "[WARNING] There are no commits in the log to lint."
