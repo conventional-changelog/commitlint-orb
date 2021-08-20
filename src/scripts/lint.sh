@@ -7,7 +7,7 @@ fi
 
 current_branch="$(git rev-parse --abbrev-ref HEAD)"
 target_branch="$CL_PARAM_TARGET_BRANCH"
-git_log="$(git log --reverse --max-count=1000 --format="format:%H")"
+git_log="$(git log --reverse --max-count="$CL_PARAM_MAX_COUNT" --format="format:%H")"
 
 if [ -z "$git_log" ]; then
   echo "[WARNING] There are no commits in the log to lint."

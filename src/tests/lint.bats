@@ -18,6 +18,7 @@ setup() {
   export CIRCLE_BRANCH="$current_branch"
   export CL_PARAM_TARGET_BRANCH="$target_branch"
   export CL_PARAM_CONFIG_PATH="commitlint.config.js"
+  export CL_PARAM_MAX_COUNT="10"
 
   echo "module.exports = {extends: ['@commitlint/config-conventional']}" > "commitlint.config.js"
 }

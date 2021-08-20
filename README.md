@@ -15,7 +15,9 @@ This example shows importing the `commitlint` orb into a basic CircleCI 2.1 conf
 ```yaml
 version: 2.1
   orbs:
-    commitlint: conventional-changelog/commitlint@1.0
+    # Use the latest version of the orb.
+    # See the Orb Registry, or GitHub Releases
+    commitlint: conventional-changelog/commitlint@<latest version>
   workflows:
     my-workflow:
       jobs:
@@ -23,6 +25,15 @@ version: 2.1
 ```
 
 CircleCI will report back the status of the `commitlint/lint` job and block a Pull Request from being merged if the job fails.
+
+## Run the commitlint orb locally
+Want to test out the commitlint orb in your CI pipeline before pushing your changes? Use the CircleCI CLI to run any job defined in your `.circleci/config.yml` locally, including jobs from orbs.
+
+Assuming your config file looks similar to the example above, and you have the [CircleCI CLI](https://circleci.com/docs/2.0/local-cli/) installed, you can run this orb for the current project locally with the following command.
+
+```shell
+circleci local execute --job commitlint/lint
+```
 
 
 ## Resources

@@ -8,6 +8,7 @@ setup() {
   git init
   echo "module.exports = {extends: ['@commitlint/config-conventional']}" > "commitlint.config.js"
   export CL_PARAM_CONFIG_PATH="commitlint.config.js"
+  export CL_PARAM_MAX_COUNT="10"
 }
 
 main() {
