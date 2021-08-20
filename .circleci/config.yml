@@ -6,7 +6,6 @@ orbs:
   orb-tools: circleci/orb-tools@10.0
   shellcheck: circleci/shellcheck@2.0
   bats: circleci/bats@1.0
-  node: circleci/node@4.7.0
 
 # Pipeline Parameters
 ## These parameters are used internally by orb-tools. Skip to the Jobs section.
@@ -23,6 +22,11 @@ parameters:
     type: string
     default: "dev:alpha"
 
+executors:
+  node:
+    docker:
+      - image: cimg/node:current
+
 workflows:
   # Prior to producing a development orb (which requires credentials) basic validation, linting, and even unit testing can be performed.
   # This workflow will run on every commit
@@ -35,7 +39,7 @@ workflows:
           dir: ./src/scripts
           exclude: SC2148
       - bats/run:
-          exec_environment: node/default
+          exec_environment: node
           path: ./src/tests
           pre-steps:
             - run:
