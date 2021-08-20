@@ -1,7 +1,6 @@
 setup() {
   cd "$BATS_SUITE_TMPDIR" || exit
-  yarn add @commitlint/cli @commitlint/config-conventional
-  alias commitlint="$BATS_SUITE_TMPDIR/node_modules/.bin/commitlint"
+  yarn add @commitlint/config-conventional
 
   export git_dir="${BATS_TEST_TMPDIR}/git_dir"
   mkdir -p "$git_dir" && cd "$git_dir" || exit
