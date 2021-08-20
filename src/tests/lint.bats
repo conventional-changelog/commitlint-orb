@@ -7,7 +7,7 @@ setup() {
 
   git init
 
-  for i in {1..10}; do
+  for i in {1..5}; do
     test_commit "chore: add $i"
   done
 
