@@ -1,0 +1,11 @@
+description: |
+  Add the `commitlint/lint` job to your existing workflow to quickly and easily begin linting your commit mesages.
+  Ensure you have first added your `commitlint.config.js` file to your project.
+usage:
+  version: 2.1
+  orbs:
+    commitlint: conventional-changelog/commitlint@1.0
+  workflows:
+    my-workflow:
+      jobs:
+        - commitlint/lint
