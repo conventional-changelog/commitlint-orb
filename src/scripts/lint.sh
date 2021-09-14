@@ -22,7 +22,7 @@ elif [ "$current_branch" != "$target_branch" ]; then
   target_head="$(git cherry "$target_branch" | head -1 | cut -d " " -f2-)^"
 else
   commit="$(echo "$git_log" | head -1)"
-  target_head="$(git log "$commit" -1 --pretty=%H)"
+  target_head="$(git log "$commit^" -1 --pretty=%H)"
 fi
 
 commitlint --verbose --config "$CL_PARAM_CONFIG_PATH" --from="$target_head"
