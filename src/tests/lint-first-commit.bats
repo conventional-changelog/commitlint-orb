@@ -53,20 +53,26 @@ test_commit() {
   [[ "$output" == *"[WARNING] There are no commits in the log to lint."* ]]
 }
 
-@test 'Test linting the history on the same branch' {
+@test 'Test linting on the same branch' {
   test_commit "bad: commit"
 
   for i in {1..5}; do
-    test_commit "chore: add $i"
+    test_commit "chore: this is a commit ${i}"
   done
+
+  git log --format="format:%H %s"
 
   export current_branch="$(git rev-parse --abbrev-ref HEAD)"
   export CIRCLE_BRANCH="$current_branch"
   export CL_PARAM_TARGET_BRANCH="$current_branch"
+  export CIRCLE_SHA1="$(git rev-parse HEAD)"
 
+  printf " \n\n\n Running commitlint \n\n\n"
   run main
   echo "$output"
   [[ "$output" == *"found 1 problems, 0 warnings"* ]]
+  [[ "$output" != *"ambiguous argument"* ]]
+  [[ "$output" != *"fatal: bad revision"* ]]
   [[ "$output" == *"[type-enum]"* ]]
 }
 

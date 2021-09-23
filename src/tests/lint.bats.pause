@@ -1,3 +1,4 @@
+# Temporarily renamed .pause so that we can work on one test suite at a time
 setup() {
   cd "$BATS_SUITE_TMPDIR" || exit
   yarn add @commitlint/config-conventional
@@ -98,7 +99,7 @@ Long line in the body should fail Lorem Ipsum is simply dummy text of the printi
   [[ $error_count -eq 5 ]]
 }
 
-@test 'Test linting on the same branch' {
+@test 'Test linting the history on the same branch' {
   test_commit "bad: commit"
 
   for i in {1..5}; do
